@@ -1,0 +1,24 @@
+language: go
+sudo: false
+matrix:
+  include:
+  - os: linux
+    go: 1.10.x
+    env:
+    - TARGET=linux
+    - ARCH=amd64
+notifications:
+  email: false
+script:
+- make test
+- make release
+deploy:
+  provider: releases
+  api_key:
+    secure: wrGdKydsNDwEr7XDeU3lmAq0sZJi5Knj6ShTgmg7lghnmJo1et9Vjje2CF2+MfwJUG95UcFoiDBD7RKBvdwccUt5Un0gddZD07FhOm3OxRbFFt3RyD1CmxueGEyujZQUQlhLX1l6Ei/Omikr3iqgnx+oMsbwNHVw6MMV5O5CgWXZWtHa+wkg4HceGfacsGjHPQVadTgOynM2npFDvX4dg3HuyeYWXFn4JxWt/2egTWWs9VD6+TpdeGuASkqYutPZtAhYTehMh8WHhTPAf8tastnUm0wb/GkV1i1Fl2phMYQP6+BzjAcQUsSjcCEsI0y5j34uHPU/FfiPje3OnP4APc4YHicZ27VAhztL0J1n1oT7Xi09kEUsPwISM3CNuAt4sxaYZscbUb4cSd/Aw+LH93hKcpz5rflTh7Wu1oYhYWs2wAMGKjwl+4Robf2fHqB/lX1GbE+/VbUmSvt55x6mDRJkzN6AWoP63gcbgYHZ09bd57xGcAgq4W4lOjhzQOm2Pa9r/8zBROkmlk1iRbJQeQ+48arjoTZ3dMjlqDjBjdwishZMo1QNLScD2EihTAOLktEQDEOOUB4EErTAPsSRpPP3nRZMz9HWwrCZMMFTZGeI6vSg/Yiv3M1xZ1by9tndLQkxCl82bv2IUaVzRsHWXcJouSAYPYLIm6Jsk9HBqYk=
+  file_glob: true
+  file: build/*
+  skip_cleanup: true
+  on:
+    repo: telia-oss/lifecycled
+    tags: true
